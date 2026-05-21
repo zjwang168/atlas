@@ -15,6 +15,7 @@ struct DraggablePlaceSheet: View {
     let expandedHeight: CGFloat
     let places: [Place]
     let onSelectPlace: (Place) -> Void
+    let onTapImport: () -> Void
 
     @GestureState private var dragOffset: CGFloat = 0
 
@@ -40,7 +41,7 @@ struct DraggablePlaceSheet: View {
 
             Spacer()
 
-            BottomActionBar()
+            BottomActionBar(onTapImport: onTapImport)
                 .padding(.horizontal, 18)
                 .padding(.bottom, 26)
         }

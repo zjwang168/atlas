@@ -18,6 +18,7 @@ struct MapHomeView: View {
 
     @State private var sheetHeight: CGFloat = 120
     @State private var showProfile = false
+    @State private var showImportSheet = false
     @State private var selectedPlace: Place?
     @State private var places: [Place] = []
 
@@ -79,12 +80,20 @@ struct MapHomeView: View {
                     places: places,
                     onSelectPlace: { place in
                         selectedPlace = place
+                    },
+                    onTapImport: {
+                        showImportSheet = true
                     }
                 )
             }
         }
         .sheet(isPresented: $showProfile) {
             ProfileView()
+        }
+        .sheet(isPresented: $showImportSheet) {
+            ImportSheetView { importedText in
+                print("Imported content:", importedText)
+            }
         }
         .sheet(item: $selectedPlace) { place in
             PlaceDetailView(place: place)

@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct BottomActionBar: View {
+    let onTapImport: () -> Void
+
     var body: some View {
         HStack(spacing: 12) {
             Button {
@@ -40,6 +42,7 @@ struct BottomActionBar: View {
             .shadow(color: .black.opacity(0.06), radius: 8)
 
             Button {
+                onTapImport()
             } label: {
                 Image(systemName: "plus")
                     .font(.title2)
@@ -50,5 +53,10 @@ struct BottomActionBar: View {
                     .shadow(color: .black.opacity(0.08), radius: 10)
             }
         }
+    }
+}
+
+#Preview {
+    BottomActionBar {
     }
 }
