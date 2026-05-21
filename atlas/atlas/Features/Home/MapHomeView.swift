@@ -19,37 +19,11 @@ struct MapHomeView: View {
     @State private var sheetHeight: CGFloat = 120
     @State private var showProfile = false
     @State private var selectedPlace: Place?
+    @State private var places: [Place] = []
 
     private let collapsedHeight: CGFloat = 120
     private let mediumHeight: CGFloat = 430
     private let expandedHeight: CGFloat = 720
-
-    private let places = [
-        Place(
-            name: "Noma Restaurant",
-            subtitle: "Downtown Seattle",
-            summary: "From Eater: A saved restaurant with AI-generated summary.",
-            latitude: 47.6095,
-            longitude: -122.3419,
-            tags: ["Restaurant", "Nordic", "Saved"]
-        ),
-        Place(
-            name: "Seattle Coffee",
-            subtitle: "Capitol Hill",
-            summary: "A cozy coffee spot saved from an imported post.",
-            latitude: 47.6152,
-            longitude: -122.3208,
-            tags: ["Coffee", "Cozy", "Nearby"]
-        ),
-        Place(
-            name: "Hidden Sushi",
-            subtitle: "Belltown",
-            summary: "A quiet sushi place recommended for dinner.",
-            latitude: 47.6131,
-            longitude: -122.3450,
-            tags: ["Sushi", "Dinner", "Hidden Gem"]
-        )
-    ]
 
     var body: some View {
         GeometryReader { geometry in
@@ -116,6 +90,36 @@ struct MapHomeView: View {
             PlaceDetailView(place: place)
                 .presentationDetents([.medium, .large])
                 .presentationDragIndicator(.visible)
+        }
+        .task {
+            await loadPlaces()
+        }
+    }
+
+    private func loadPlaces() async {
+        do {
+            let fetchedPlaces = try await PlaceService.shared.fetchPlaces()
+
+            self.places = fetchedPlaces.compactMap { dto in
+                guard let latitude = dto.latitude,
+                      let longitude = dto.longitude else {
+                    return nil
+                }
+
+                return Place(
+                    name: dto.name,
+                    subtitle: dto.subtitle ?? dto.city ?? "Saved place",
+                    summary: dto.ai_summary ?? "No summary yet.",
+                    latitude: latitude,
+                    longitude: longitude,
+                    tags: [
+                        dto.category ?? "Place",
+                        dto.city ?? "Saved"
+                    ]
+                )
+            }
+        } catch {
+            print("Failed to fetch places:", error)
         }
     }
 }

@@ -6,6 +6,13 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		8158324D2FBE6CCC000D9B3A /* erd.dbml in Resources */ = {isa = PBXBuildFile; fileRef = 8158324A2FBE6CCC000D9B3A /* erd.dbml */; };
+		8158324E2FBE6CCC000D9B3A /* er-mapping.md in Resources */ = {isa = PBXBuildFile; fileRef = 815832492FBE6CCC000D9B3A /* er-mapping.md */; };
+		8158324F2FBE6CCC000D9B3A /* schema.sql in Resources */ = {isa = PBXBuildFile; fileRef = 8158324B2FBE6CCC000D9B3A /* schema.sql */; };
+		815832562FBF525A000D9B3A /* Supabase in Frameworks */ = {isa = PBXBuildFile; productRef = 815832552FBF525A000D9B3A /* Supabase */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		815832132FBC00EC000D9B3A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -27,6 +34,9 @@
 		815832002FBC00EA000D9B3A /* atlas.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = atlas.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		815832122FBC00EC000D9B3A /* atlasTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = atlasTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8158321C2FBC00EC000D9B3A /* atlasUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = atlasUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		815832492FBE6CCC000D9B3A /* er-mapping.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "er-mapping.md"; sourceTree = "<group>"; };
+		8158324A2FBE6CCC000D9B3A /* erd.dbml */ = {isa = PBXFileReference; lastKnownFileType = text; path = erd.dbml; sourceTree = "<group>"; };
+		8158324B2FBE6CCC000D9B3A /* schema.sql */ = {isa = PBXFileReference; lastKnownFileType = text; path = schema.sql; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -52,6 +62,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				815832562FBF525A000D9B3A /* Supabase in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -75,9 +86,11 @@
 		815831F72FBC00EA000D9B3A = {
 			isa = PBXGroup;
 			children = (
+				8158324C2FBE6CCC000D9B3A /* docs */,
 				815832022FBC00EA000D9B3A /* atlas */,
 				815832152FBC00EC000D9B3A /* atlasTests */,
 				8158321F2FBC00EC000D9B3A /* atlasUITests */,
+				815832542FBF525A000D9B3A /* Frameworks */,
 				815832012FBC00EA000D9B3A /* Products */,
 			);
 			sourceTree = "<group>";
@@ -90,6 +103,23 @@
 				8158321C2FBC00EC000D9B3A /* atlasUITests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		8158324C2FBE6CCC000D9B3A /* docs */ = {
+			isa = PBXGroup;
+			children = (
+				815832492FBE6CCC000D9B3A /* er-mapping.md */,
+				8158324A2FBE6CCC000D9B3A /* erd.dbml */,
+				8158324B2FBE6CCC000D9B3A /* schema.sql */,
+			);
+			path = docs;
+			sourceTree = "<group>";
+		};
+		815832542FBF525A000D9B3A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -112,6 +142,7 @@
 			);
 			name = atlas;
 			packageProductDependencies = (
+				815832552FBF525A000D9B3A /* Supabase */,
 			);
 			productName = atlas;
 			productReference = 815832002FBC00EA000D9B3A /* atlas.app */;
@@ -195,6 +226,9 @@
 			);
 			mainGroup = 815831F72FBC00EA000D9B3A;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				815832502FBF4EF0000D9B3A /* XCRemoteSwiftPackageReference "supabase-swift" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 815832012FBC00EA000D9B3A /* Products */;
 			projectDirPath = "";
@@ -212,6 +246,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8158324D2FBE6CCC000D9B3A /* erd.dbml in Resources */,
+				8158324E2FBE6CCC000D9B3A /* er-mapping.md in Resources */,
+				8158324F2FBE6CCC000D9B3A /* schema.sql in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -552,6 +589,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		815832502FBF4EF0000D9B3A /* XCRemoteSwiftPackageReference "supabase-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/supabase/supabase-swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.5.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		815832552FBF525A000D9B3A /* Supabase */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 815832502FBF4EF0000D9B3A /* XCRemoteSwiftPackageReference "supabase-swift" */;
+			productName = Supabase;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 815831F82FBC00EA000D9B3A /* Project object */;
 }
