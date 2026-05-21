@@ -19,8 +19,10 @@ struct MapHomeView: View {
     @State private var sheetHeight: CGFloat = 120
     @State private var showProfile = false
     @State private var showImportSheet = false
+    @State private var showImportPreview = false
     @State private var selectedPlace: Place?
     @State private var places: [Place] = []
+    @State private var extractedPlaces: [ExtractedPlace] = []
 
     private let collapsedHeight: CGFloat = 120
     private let mediumHeight: CGFloat = 430
@@ -91,8 +93,27 @@ struct MapHomeView: View {
             ProfileView()
         }
         .sheet(isPresented: $showImportSheet) {
-            ImportSheetView { importedText in
-                print("Imported content:", importedText)
+            ImportSheetView { extracted in
+                extractedPlaces = extracted
+
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) {
+                    showImportPreview = true
+                }
+            }
+        }
+        .sheet(isPresented: $showImportPreview) {
+            ImportPreviewView(places: extractedPlaces) { approvedPlaces in
+                Task {
+                    do {
+                        for place in approvedPlaces {
+                            try await PlaceService.shared.createPlace(from: place)
+                        }
+
+                        await loadPlaces()
+                    } catch {
+                        print("Failed to save extracted places:", error)
+                    }
+                }
             }
         }
         .sheet(item: $selectedPlace) { place in
